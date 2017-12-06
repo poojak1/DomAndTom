@@ -52,10 +52,10 @@ public class WebDriverTest {
 		String actualTitle = driver.findElement(By.cssSelector("title")).getText();
 		assert(actualTitle).equals(expectedTitle);
 		
-		/*
-		 * Step 2. Display the count of options on the left side panel ('Mail', 'News', 'Sports',......)
-		 * including 'More Yahoo Sites' option
-	 	 */
+		
+		 /* Step 2. Display the count of options on the left side panel ('Mail', 'News', 'Sports',......) */
+		 /* including 'More Yahoo Sites' option */
+	 	 
 		WebElement expectedUlElement = driver.findElement(By.tagName("ul"));
 		List<WebElement> expectedNavItemsList = expectedUlElement.findElements(By.tagName("li"));
 		System.out.println("Count of options on the left side panel: " + expectedNavItemsList.size());
@@ -81,12 +81,12 @@ public class WebDriverTest {
 		
 		// Step 8. Click 'Sign In' button  
 		
-		 driver.findElement(By.id("login-signin")).click();
+		driver.findElement(By.id("login-signin")).click();
 		 
-		/*
-		 * Step 9. Error will be displayed. 
-		 * Assert true when the error message contains the expectedErrorStr defined below
-		 */
+		
+		 /* Step 9. Error will be displayed. */
+		 /* Assert true when the error message contains the expectedErrorStr defined below */
+		 
 		String expectedErrorStr = "Sorry, we don't recognize this email.";
 		String actualErrorStr =	driver.findElement(By.id("username-error")).getText();
 		assert(actualErrorStr).equals(expectedErrorStr);
@@ -126,32 +126,49 @@ public class WebDriverTest {
 		 * Step 1. Assert that we are on the correct page by checking that title = 'Send Money, Pay Online or Set Up
 		 * a Merchant Account - PayPal'  
 		 */ 
-		String expectedTitle = "Send Money, Pay Online or Set Up a Merchant Account - PayPal	";
-		String actualTitle = driver.findElement(By.cssSelector("title")).getText();
+		String expectedTitle = "Send Money, Pay Online or Set Up a Merchant Account - PayPal";
+		String actualTitle = driver.findElement(By.tagName("title")).getText();
 		assert(actualTitle).equals(expectedTitle);
 
 		// Step 2. Click 'Sign Up for Free' button
-		 driver.findElement(By.id("ul-btn")).click();
+		 driver.findElement(By.className("round-icon")).click();
+		 driver.findElement(By.xpath("//*[@id='left-hero']/div/div/div[3]/a")).click();
 		
 		// Step 3: Enter email address test@google.com 
+	 	driver.findElement(By.id("paypalAccountData_firstName")).sendKeys("test");
+	 	driver.findElement(By.id("paypalAccountData_lastName")).sendKeys("Test");
+	 	driver.findElement(By.id("paypalAccountData_email")).sendKeys("test@google.com");
+		 	
+		 
 		
-		// Step 4: Enter password test123 
+		// Step 4: Enter password test1234 
+	 	driver.findElement(By.id("paypalAccountData_password")).sendKeys("test1234");
         
-		// Step 5: Enter confirm password test123
-        
+		// Step 5: Enter confirm password test1234
+	 	driver.findElement(By.id("paypalAccountData_confirmPassword")).sendKeys("test1234");
+		 	
 		// Step 6: Click 'Continue' button  
+	 	driver.findElement(By.id("/appData/action")).click();
+		 		
         
 		/*
 		 * Step 7. Error will be displayed		
 		 * Assert True that error message contains the expectedErrorStr defined below
  		 */
-		String expectedErrorStr = "It looks like you already signed up.";
-		
+	 	String expectedErrorStr = "It looks like you already signed up."; 	
+	 	
+	 	String actualErrorStr =	driver.findElement(By.xpath("//*[@id='PageMainForm']/div[2]/div[3]/div/div/div[2]")).getText();
+		assert(actualErrorStr).equals(expectedErrorStr);
+		 	
 		// Step 8. Print out the boolean state of the 'confirmPassword' input field displayed
 		
 		// Step 9. Display the count of Images on the Sign In page
 		
+		List<WebElement> expectedImagesList = driver.findElements(By.tagName("img"));
+		System.out.println("Number of images on the page: "+ expectedImagesList.size());
+			
 		// Step 10. Display the country flag shown on the bottom right side
+		assert(driver.findElement(By.className("country US"))).isDisplayed();
 	}
 
 
