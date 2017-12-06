@@ -45,7 +45,7 @@ public class WebDriverTest {
 		
 		driver.get("https://www.yahoo.com/");
 		driver.manage().window().maximize();
-		driver.getTitle();
+		
 		
 		// Step 1. Assert that we are on the correct page by checking that title = 'Yahoo' 
 		String expectedTitle = "Yahoo";
@@ -58,7 +58,7 @@ public class WebDriverTest {
 	 	 */
 		WebElement expectedUlElement = driver.findElement(By.tagName("ul"));
 		List<WebElement> expectedNavItemsList = expectedUlElement.findElements(By.tagName("li"));
-		System.out.println("Count of options on the left side panel"+ expectedNavItemsList.size());
+		System.out.println("Count of options on the left side panel: " + expectedNavItemsList.size());
 				
 			
 		// Step 3: Enter 'Nutrition' on the search bar on the top
@@ -69,26 +69,27 @@ public class WebDriverTest {
 
 		// Step 5: Display count of Images on the page
 		List<WebElement> expectedImagesList = driver.findElements(By.tagName("img"));
-		System.out.println("Number of images on the page"+ expectedImagesList.size());
+		System.out.println("Number of images on the page: "+ expectedImagesList.size());
 		
 		// Step 6. Click 'Sign In' button on the top left side
-		driver.findElement(By.id("uh-signin")).click();
+		driver.findElement(By.id("yucs-login_signIn")).click();
 				
 		// Step 7. Display the boolean state of the checkbox next to 'Keep me signed in'
-
+		WebElement expectedCheckbox = driver.findElement(By.id("persistent"));
+		boolean expectedCheckedStatus = expectedCheckbox.isSelected();
+		System.out.println("Boolean state of checkbox : "+ expectedCheckedStatus);
+		
 		// Step 8. Click 'Sign In' button  
-		 driver.findElement(By.id("login-username")).sendKeys("pooja_kasture");
+		
 		 driver.findElement(By.id("login-signin")).click();
-		 driver.findElement(By.id("login-passwd")).sendKeys("test123");
-		 driver.findElement(By.name("verifyPassword")).click();
-			
+		 
 		/*
 		 * Step 9. Error will be displayed. 
 		 * Assert true when the error message contains the expectedErrorStr defined below
 		 */
 		String expectedErrorStr = "Sorry, we don't recognize this email.";
-		
-			
+		String actualErrorStr =	driver.findElement(By.id("username-error")).getText();
+		assert(actualErrorStr).equals(expectedErrorStr);
 	}
 	
 	private void assertTrue(Object click) {
